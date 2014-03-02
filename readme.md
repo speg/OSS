@@ -3,6 +3,14 @@
 
 Clone and run setup scripts.
 
-## Paid Hosting
+## Hosting
 
 No coding required!
+
+## Consulting
+
+Get help.
+
+## BYOD
+
+MySQL, Postgres, Mongo, etc...

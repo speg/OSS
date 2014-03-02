@@ -5,8 +5,18 @@ var nextId = (function(){
     return function(){
         return c++;
     }
-    
+
 }())
+
+class Validator {
+  private rule:RegExp;
+  constructor(regex:string){
+    this.rule = new RegExp(regex);
+  }
+  test(input){
+    return this.rule.test(input.toString());
+  }
+}
 
 class Thing implements Things{
     widgets = [];
@@ -19,13 +29,23 @@ class Thing implements Things{
 
 class Broom implements iWidget {
     id: Number;
-    private secret:string
+    private secret:string;
+    validators:Validator[] = [];
     constructor(public title:string){
         this.id = nextId();
+        this.validators.push(new Validator('^[0-9]+$'));
     }
+
     validate(input:string){
-        return /^[0-9]+$/.test(input);
+        var valid = true;
+        this.validators.forEach(function(v){
+            if (!v.test(input)){
+              valid = false;
+            }
+        });
+        return valid;
     }
+
     complete(input:string) {
         if (!this.validate(input)){
             return false;
@@ -37,4 +57,3 @@ class Broom implements iWidget {
 
 var w = new Broom('thing');
 w.complete('5')
-
