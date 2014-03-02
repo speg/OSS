@@ -25,6 +25,14 @@ class Thing implements Things{
     getUrl() {
         return '/things/:id/' + this.widgets.length;
     }
+    render(){
+      var html = '<div class="thing">';
+      this.widgets.forEach(function(w){
+          html += w.render();
+      });
+      html += '</div>';
+      return html;
+    }
 }
 
 class Broom implements iWidget {
@@ -46,6 +54,13 @@ class Broom implements iWidget {
         return valid;
     }
 
+    render(){
+      var html = '<div class="broom widget"><h1>';
+      html += this.title;
+      html += '</h1></div>';
+      return html;
+    }
+
     complete(input:string) {
         if (!this.validate(input)){
             return false;
@@ -54,6 +69,10 @@ class Broom implements iWidget {
         return true;
     }
 }
-
+var T = new Thing('First One');
 var w = new Broom('thing');
 w.complete('5')
+T.widgets.push(w);
+document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById('main').innerHTML = T.render();
+});
