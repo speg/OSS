@@ -3,4 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  div#main
+  div#main(data-bind="foreach: things")
+    div.thing
+      input(data-bind="value: name")
+  p(data-bind="text: sum")
